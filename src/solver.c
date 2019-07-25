@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 13:01:06 by bgian             #+#    #+#             */
-/*   Updated: 2019/07/25 07:34:39 by bgian            ###   ########.fr       */
+/*   Updated: 2019/07/25 10:55:04 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int			check_square(t_map_psum *map, unsigned int pos, unsigned int side)
 {
 	unsigned int	tmp_res;
 
-	if (side > (map->height - (pos / map->width) + 1))
+	if (side > (map->height - (pos / map->width) ))
 		return (1);
-	if ((side + pos % map->width) / map->width > 0)
+	if (side > map->width - pos % map->width)
 		return (1);
 	#ifdef DBG_SOLVER
 	printf("Checking!\n");
@@ -43,7 +43,7 @@ int			check_square(t_map_psum *map, unsigned int pos, unsigned int side)
 	printf("N at right diagonal: %d\n", tmp_res);
 	#endif
 	if (pos % map->width > 0)
-		tmp_res -= map->start[pos - 1];
+		tmp_res -= map->start[pos - 1 + map->width * (side - 1)];
 	if (pos / map->width > 0)
 		tmp_res -= map->start[pos + (side - 1) - map->width];
 	if ((pos % map->width) && (pos / map->width))
@@ -61,7 +61,7 @@ t_solution	*check_size(t_map_psum *map, unsigned int side)
 
 	pos = 0;
 
-	while (pos <= (map->height * map->width))
+	while (pos < (map->height * map->width))
 	{
 		#ifdef DBG_SOLVER
 		printf("Searching for square of size %d at pos (%d, %d)\n",
