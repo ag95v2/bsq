@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 22:46:09 by bgian             #+#    #+#             */
-/*   Updated: 2019/07/25 01:13:53 by bgian            ###   ########.fr       */
+/*   Updated: 2019/07/25 05:59:44 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_first_line	*read_first_line(t_map_psum *map)
 	ft_putstr(start->text, 1);
 	ft_putstr("\n\n", 1);
 	#endif
+	start->text[width] = 0;
 	map->width = width;
 	return (start);
 }
@@ -152,8 +153,7 @@ void			parse_first_line(t_first_line *f_line, t_map_psum *map)
 		pos = f_line->text;
 		while (*pos)
 		{
-			if (*pos)
-				r_cusum += process_symbol(*(pos++), map, count, r_cusum);
+			r_cusum += process_symbol(*(pos++), map, count, r_cusum);
 			count++;
 		}
 		f_line = f_line->next;
@@ -165,8 +165,8 @@ void			read_map(t_map_psum *map)
 	t_first_line	*f_line;
 	unsigned int	l_num;
 
-	map->start = (unsigned int *)malloc(map->width*map->height*sizeof(int));
 	f_line = read_first_line(map);
+	map->start = (unsigned int *)malloc(map->width*map->height*sizeof(int));
 	parse_first_line(f_line, map);
 	l_num = 1;
 	while (l_num < map->height && map->is_valid)

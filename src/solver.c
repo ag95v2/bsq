@@ -6,7 +6,7 @@
 /*   By: bgian <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 13:01:06 by bgian             #+#    #+#             */
-/*   Updated: 2019/07/23 23:16:39 by bgian            ###   ########.fr       */
+/*   Updated: 2019/07/25 07:34:39 by bgian            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_solution	*check_size(t_map_psum *map, unsigned int side)
 
 	pos = 0;
 
-	while (pos < (map->height * map->width))
+	while (pos <= (map->height * map->width))
 	{
 		#ifdef DBG_SOLVER
 		printf("Searching for square of size %d at pos (%d, %d)\n",
